@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.121.0/http/mod.ts";
 
 const decoder = new TextDecoder();
-const html = decoder.decode(Deno.readFileSync("./index.html"));
+const html = decoder.decode(await Deno.readFile("./index.html"));
 
 async function handler(res: Request): Promise<Response> {
   const { pathname } = new URL(res.url);
