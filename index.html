@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deno Shield</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="uno.css" type="text/css" /> -->
+    <style>
+      .font-code {
+        font-family: "JetBrains Mono", monospace;
+      }
+      a {
+        color: #222;
+        font-weight: 600;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body class="font-sans mx-auto my-0 text-base max-w-200 px-6">
+    <div class="flex pt-8 justify-between">
+      <code class="text-lg">shield.deno.dev</code>
+      <a
+        href="https://github.com/ydcjeff/shield.deno.dev"
+        target="_blank"
+        rel="shield.deno.dev"
+      >
+        GitHub
+      </a>
+    </div>
+    <h1 class="text-center pt-4 text-3xl">Badge service for Deno modules</h1>
+    <div class="pt-4">
+      <h2 class="m-0 text-lg pt-4">Generate Deno module version badge</h2>
+      <label for="deno-module-version">
+        <div class="flex pt-4 gap-1 items-center">
+          <div class="font-code">shield.deno.dev/x/</div>
+          <input
+            type="text"
+            class="border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
+            placeholder="module name"
+          />
+        </div>
+      </label>
+    </div>
+    <div class="pt-4">
+      <h2 class="m-0 text-lg pt-4">Generate supported Deno version</h2>
+      <label for="deno-version">
+        <div class="flex pt-4 gap-1 items-center">
+          <div class="font-code">shield.deno.dev/deno/</div>
+          <input
+            type="text"
+            class="border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
+            placeholder="deno version"
+          />
+        </div>
+      </label>
+    </div>
+    <div class="">
+      <h2 class="m-0 text-lg pt-4">Examples</h2>
+    </div>
+    <footer class="flex pt-12 justify-between">
+      <span>MIT Licensed | Copyright &copy; 2022 Jeff Yang.</span>
+      <span>
+        Powered by
+        <a href="https://deno.com/deploy" target="_blank" rel="shield.deno.dev">
+          Deno Deploy</a
+        >.
+      </span>
+    </footer>
+  </body>
+  <script type="module">
+    // import "uno.css";
+  </script>
+</html>
