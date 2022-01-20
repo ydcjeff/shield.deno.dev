@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="uno.css" type="text/css" />
     <link rel="icon" href="https://deno.land/logo.svg" type="image/svg+xml">
     <style>
+      body {
+        animation: tailwind 30s linear infinite;
+      }
       .font-code {
         font-family: "JetBrains Mono", monospace;
       }
@@ -39,10 +42,63 @@
       a:hover {
         text-decoration: none;
       }
+      @keyframes tailwind {
+        0% {
+          background-color: rgb(254 242 242);
+        }
+        6% {
+          background-color: rgb(255 247 237);
+        }
+        12% {
+          background-color: rgb(255 251 235);
+        }
+        18% {
+          background-color: rgb(254 252 232);
+        }
+        24% {
+          background-color: rgb(247 254 231);
+        }
+        30% {
+          background-color: rgb(240 253 244);
+        }
+        36% {
+          background-color: rgb(236 253 245);
+        }
+        42% {
+          background-color: rgb(240 253 250);
+        }
+        48% {
+          background-color: rgb(236 254 255);
+        }
+        54% {
+          background-color: rgb(240 249 255);
+        }
+        60% {
+          background-color: rgb(239 246 255);
+        }
+        66% {
+          background-color: rgb(238 242 255);
+        }
+        72% {
+          background-color: rgb(245 243 255);
+        }
+        78% {
+          background-color: rgb(245 243 255);
+        }
+        84% {
+          background-color: rgb(253 244 255);
+        }
+        90% {
+          background-color: rgb(253 242 248);
+        }
+        100% {
+          background-color: rgb(255 241 242);
+        }
+      }
     </style>
   </head>
   <body class="font-sans mx-auto my-0 text-base max-w-200 px-6">
-    <div class="flex pt-8 justify-between">
+    <header class="flex pt-8 justify-between">
       <div class="font-code text-lg">shield.deno.dev</div>
       <a
         href="https://github.com/ydcjeff/shield.deno.dev"
@@ -51,7 +107,7 @@
       >
         GitHub
       </a>
-    </div>
+    </header>
     <h1 class="text-center pt-4 text-3xl">Badge service for Deno modules</h1>
     <div class="pt-4">
       <h2 class="m-0 text-lg pt-4">Generate Deno module version badge</h2>
@@ -60,7 +116,7 @@
           <div class="font-code">shield.deno.dev/x/</div>
           <input
             type="text"
-            class="border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
+            class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
             placeholder="enter module name (oak)"
             id="deno-module-version"
             name="deno-module-version"
@@ -79,7 +135,7 @@
           <div class="font-code">shield.deno.dev/deno/</div>
           <input
             type="text"
-            class="border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
+            class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
             placeholder="enter deno version (^1.17)"
             id="deno-version"
             name="deno-version"
@@ -117,12 +173,12 @@
       </div>
     </div>
     <footer class="flex py-12 justify-between">
-      <span>Copyright &copy; 2022 Jeff Yang.</span>
+      <span>Copyright &copy; 2022 Jeff Yang</span>
       <span>
         Powered by
         <a href="https://deno.com/deploy" target="_blank" rel="shield.deno.dev">
-          Deno Deploy</a
-        >.
+          Deno Deploy
+        </a>
       </span>
     </footer>
   <script type="module">
