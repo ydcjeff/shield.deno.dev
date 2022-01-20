@@ -11,7 +11,12 @@ async function handler(res: Request): Promise<Response> {
   if (pathname === '/') {
     return new Response(html, { headers: { 'content-type': 'text/html' } });
   } else if (pathname === '/uno.css') {
-    return new Response(css, { headers: { 'content-type': 'text/css' } });
+    return new Response(css, {
+      headers: {
+        'content-type': 'text/css',
+        'cache-control': 'max-age=604800, stale-while-revalidate=86400',
+      },
+    });
   }
 
   let [scope, module] = pathname.replace(/^\/|\/$/gm, '').split('/');
