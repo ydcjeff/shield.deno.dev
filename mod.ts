@@ -46,6 +46,7 @@ async function handler(res: Request): Promise<Response> {
   return new Response(generateBadge(scope, module, msgColor), {
     headers: {
       'content-type': 'image/svg+xml; charset=utf-8',
+      'cache-control': 'max-age=604800, stale-while-revalidate=86400',
     },
   });
 }
