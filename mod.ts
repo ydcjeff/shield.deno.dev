@@ -46,7 +46,6 @@ async function handler(res: Request): Promise<Response> {
   return new Response(generateBadge(scope, module, msgColor), {
     headers: {
       'content-type': 'image/svg+xml; charset=utf-8',
-      'access-control-allow-origin': '*',
     },
   });
 }
