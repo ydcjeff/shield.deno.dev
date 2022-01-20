@@ -86,12 +86,12 @@ function generateBadge(label: string, msg: string, msgColor: string) {
 function getMsgColor(status: string, isDeno: boolean) {
   // colors are from Tailwind 3.0
   // https://tailwindcss.com/docs/background-color
-  if (aboveOnePointRE.test(status)) {
+  if (isDeno) {
+    return '#22c55e'; // bg-green-500
+  } else if (aboveOnePointRE.test(status)) {
     return '#3b82f6'; // bg-blue-500
   } else if (belowOnePointRe.test(status)) {
     return '#f97316'; // bg-orange-500
-  } else if (isDeno) {
-    return '#22c55e'; // bg-green-500
   } else {
     return '#ef4444'; // bg-red-500
   }

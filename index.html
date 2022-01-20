@@ -145,7 +145,7 @@
         const value = e.target.value
         const res = await fetch(`/x/${value}`)
         const module = document.getElementById('preview-module')
-        module.innerHTML = await res.text() + module.innerHTML
+        module.innerHTML = await res.text() + module.lastElementChild.outerHTML
         document.getElementById('copyModule').addEventListener('click', async () => {
           const text = `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`
           await copy(text)
@@ -158,7 +158,7 @@
         const value = e.target.value
         const res = await fetch(`/deno/${value}`)
         const deno = document.getElementById('preview-deno')
-        deno.innerHTML = await res.text() + deno.innerHTML
+        deno.innerHTML = await res.text() + deno.lastElementChild.outerHTML
         document.getElementById('copyDeno').addEventListener('click', async () => {
           const text = `![deno compatibility](https://shield.deno.dev/deno/${value})`
           await copy(text)
