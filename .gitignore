@@ -1,0 +1,4 @@
+*.log
+cov
+node_modules
+dist
