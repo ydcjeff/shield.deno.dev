@@ -44,7 +44,10 @@ async function handler(res: Request): Promise<Response> {
   const msgColor = getMsgColor(module, scope === 'deno');
 
   return new Response(generateBadge(scope, module, msgColor), {
-    headers: { 'content-type': 'image/svg+xml; charset=utf-8' },
+    headers: {
+      'content-type': 'image/svg+xml; charset=utf-8',
+      'access-control-allow-origin': '*',
+    },
   });
 }
 
