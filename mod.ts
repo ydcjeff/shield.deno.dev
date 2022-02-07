@@ -1,4 +1,4 @@
-import { serve } from 'https://deno.land/std@0.121.0/http/mod.ts';
+import { serve } from 'https://deno.land/std@0.125.0/http/mod.ts';
 
 const decoder = new TextDecoder();
 const html = decoder.decode(await Deno.readFile('./index.html'));
