@@ -4,7 +4,7 @@ const decoder = new TextDecoder();
 const html = decoder.decode(await Deno.readFile('./index.html'));
 const css = decoder.decode(await Deno.readFile('./uno.css'));
 const aboveOnePointRE = /[1-9]\d*\.\d+\.\d+/;
-const belowOnePointRe = /(?<!\d)0\.\d+\.\d+/;
+const belowOnePointRE = /(?<!\d)0\.\d+\.\d+/;
 
 async function handler(res: Request): Promise<Response> {
   const { pathname } = new URL(res.url);
@@ -96,7 +96,7 @@ function getMsgColor(status: string, isDeno: boolean) {
     return '#22c55e'; // bg-green-500
   } else if (aboveOnePointRE.test(status)) {
     return '#3b82f6'; // bg-blue-500
-  } else if (belowOnePointRe.test(status)) {
+  } else if (belowOnePointRE.test(status)) {
     return '#f97316'; // bg-orange-500
   } else {
     return '#ef4444'; // bg-red-500
