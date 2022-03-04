@@ -105,9 +105,9 @@ function getMsgColor(status: string, isDeno: boolean) {
 
 function escapeHTML(str: string): string {
   return str
-    .replace('&', '&amp;')
-    .replace('<', '&lt;')
-    .replace('>', '&gt;')
-    .replace('"', '&quot;')
-    .replace('\'', '&apos;');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
 }
