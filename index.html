@@ -172,8 +172,9 @@
         <img src="/deno/^1.15" alt="deno version"/>
       </div>
     </div>
-    <footer class="flex py-12 justify-between">
+    <footer class="flex py-12 justify-between items-center">
       <span>Copyright &copy; 2022 Jeff Yang</span>
+      <span id="wcb" class="carbonbadge"></span>
       <span>
         Powered by
         <a href="https://deno.com/deploy" target="_blank" rel="shield.deno.dev">
@@ -181,6 +182,7 @@
         </a>
       </span>
     </footer>
+  <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
   <script type="module">
     // import "uno.css"; // ui dev only
     const moduleNode = document.getElementById('deno-module-version')
