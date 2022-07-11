@@ -45,7 +45,8 @@ async function handler(request: Request): Promise<Response> {
 
   return new Response(generate_badge(scope, module, msg_color), {
     headers: {
-      'content-type': 'image/svg+xml',
+      'Content-Type': 'image/svg+xml; charset=utf-8',
+      'Cache-Control': 'max-age=300, s-maxage=300',
     },
   });
 }
