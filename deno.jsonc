@@ -1,11 +1,8 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true
-  },
-  "fmt": {
-    "options": {
-      "singleQuote": true
-    }
-  }
+	"fmt": {
+		"options": {
+			"singleQuote": true,
+			"useTabs": true
+		}
+	}
 }

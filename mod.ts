@@ -1,72 +1,72 @@
-import { serve } from 'https://deno.land/std@0.138.0/http/mod.ts';
-import { serveDir } from 'https://deno.land/std@0.138.0/http/file_server.ts';
+import { serve } from 'https://deno.land/std@0.147.0/http/mod.ts';
+import { serveDir } from 'https://deno.land/std@0.147.0/http/file_server.ts';
 
 const above_one_point_re = /[1-9]\d*\.\d+\.\d+/;
 const below_one_point_re = /(?<!\d)0\.\d+\.\d+/;
 
 async function handler(request: Request): Promise<Response> {
-  const { pathname } = new URL(request.url);
+	const { pathname } = new URL(request.url);
 
-  if (['/', '/uno.css'].includes(pathname)) {
-    if (pathname === '/') request = new Request(request.url + 'index.html');
-    return serveDir(request, {
-      quiet: !!Deno.env.get('DENO_DEPLOYMENT_ID'),
-    });
-  }
+	if (['/', '/uno.css'].includes(pathname)) {
+		if (pathname === '/') request = new Request(request.url + 'index.html');
+		return serveDir(request, {
+			quiet: !!Deno.env.get('DENO_DEPLOYMENT_ID'),
+		});
+	}
 
-  let [scope, module] = pathname.replace(/^\/|\/$/gm, '').split('/');
-  module = decodeURIComponent(module);
+	let [scope, module] = pathname.replace(/^\/|\/$/gm, '').split('/');
+	module = decodeURIComponent(module);
 
-  if (scope === 'x') {
-    const res = await fetch(
-      `https://cdn.deno.land/${module}/meta/versions.json`,
-      {
-        referrer: 'https://shield.deno.dev',
-      },
-    );
+	if (scope === 'x') {
+		const res = await fetch(
+			`https://cdn.deno.land/${module}/meta/versions.json`,
+			{
+				referrer: 'https://shield.deno.dev',
+			},
+		);
 
-    if (!res.ok) {
-      return new Response(res.body, {
-        headers: res.headers,
-        status: res.status,
-        statusText: res.statusText,
-      });
-    }
+		if (!res.ok) {
+			return new Response(res.body, {
+				headers: res.headers,
+				status: res.status,
+				statusText: res.statusText,
+			});
+		}
 
-    const json = await res.json();
-    scope = 'deno.land/x';
-    module = json.latest || 'module not found';
-  } else if (scope !== 'deno') {
-    scope = 'shield.deno.dev';
-    module = 'invalid URL';
-  }
+		const json = await res.json();
+		scope = 'deno.land/x';
+		module = json.latest || 'module not found';
+	} else if (scope !== 'deno') {
+		scope = 'shield.deno.dev';
+		module = 'invalid URL';
+	}
 
-  const msg_color = get_msg_color(module, scope === 'deno');
+	const msg_color = get_msg_color(module, scope === 'deno');
 
-  return new Response(generate_badge(scope, module, msg_color), {
-    headers: {
-      'Content-Type': 'image/svg+xml; charset=utf-8',
-      'Cache-Control': 'max-age=300, s-maxage=300, must-revalidate',
-    },
-  });
+	return new Response(generate_badge(scope, module, msg_color), {
+		headers: {
+			'Content-Type': 'image/svg+xml; charset=utf-8',
+			'Cache-Control': 'max-age=300, s-maxage=300, must-revalidate',
+		},
+	});
 }
 
 serve(handler);
 
 function generate_badge(label: string, msg: string, msg_color: string) {
-  const aria_label = label + ' ' + msg;
-  const padding = 8; // left right padding;
-  const gap = 4; // gap between each item;
-  const deno_logo = 16; // deno logo width and height;
-  const scale = 6;
-  const label_text_length = label.length * scale;
-  const msg_text_length = msg.length * scale;
-  const left_width = label_text_length + padding + deno_logo + gap;
-  const right_width = msg_text_length + padding;
-  const total_width = left_width + right_width;
+	const aria_label = label + ' ' + msg;
+	const padding = 8; // left right padding;
+	const gap = 4; // gap between each item;
+	const deno_logo = 16; // deno logo width and height;
+	const scale = 6;
+	const label_text_length = label.length * scale;
+	const msg_text_length = msg.length * scale;
+	const left_width = label_text_length + padding + deno_logo + gap;
+	const right_width = msg_text_length + padding;
+	const total_width = left_width + right_width;
 
-  // deno-fmt-ignore
-  return `
+	// deno-fmt-ignore
+	return `
 <svg viewBox="0 0 ${total_width} 20" width="${total_width}" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="${aria_label}">
   <title>${aria_label}</title>
   <clipPath id="r">
@@ -85,24 +85,24 @@ function generate_badge(label: string, msg: string, msg_color: string) {
 }
 
 function get_msg_color(status: string, is_deno: boolean) {
-  // colors are from Tailwind 3.0
-  // https://tailwindcss.com/docs/background-color
-  if (is_deno) {
-    return '#22c55e'; // bg-green-500
-  } else if (above_one_point_re.test(status)) {
-    return '#3b82f6'; // bg-blue-500
-  } else if (below_one_point_re.test(status)) {
-    return '#f97316'; // bg-orange-500
-  } else {
-    return '#ef4444'; // bg-red-500
-  }
+	// colors are from Tailwind 3.0
+	// https://tailwindcss.com/docs/background-color
+	if (is_deno) {
+		return '#22c55e'; // bg-green-500
+	} else if (above_one_point_re.test(status)) {
+		return '#3b82f6'; // bg-blue-500
+	} else if (below_one_point_re.test(status)) {
+		return '#f97316'; // bg-orange-500
+	} else {
+		return '#ef4444'; // bg-red-500
+	}
 }
 
 function escape_html(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+	return str
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&apos;');
 }
