@@ -124,8 +124,10 @@
           />
         </div>
       </label>
-      <div id="preview-module" class="flex p-4 justify-between items-center sm:justify-around">
-        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copyModule">Copy Markdown</button>
+      <div class="flex p-4 justify-between items-center sm:justify-around">
+        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="previewModule" disabled>Preview Badge</button>
+        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copyModule" disabled>Copy Markdown</button>
+        <div class="flex" id="preview-module"></div>
       </div>
     </div>
     <div class="pt-4">
@@ -143,8 +145,10 @@
           />
         </div>
       </label>
-      <div id="preview-deno" class="flex p-4 justify-between items-center sm:justify-around">
-        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copyDeno">Copy Markdown</button>
+      <div class="flex p-4 justify-between items-center sm:justify-around">
+        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="previewDeno" disabled>Preview Badge</button>
+        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copyDeno" disabled>Copy Markdown</button>
+        <div class="flex" id="preview-deno"></div>
       </div>
     </div>
     <div class="pt-4">
@@ -187,6 +191,10 @@
     // import "uno.css"; // ui dev only
     const moduleNode = document.getElementById('deno-module-version')
     const denoNode = document.getElementById('deno-version')
+    const copyModule = document.getElementById('copyModule')
+    const copyDeno = document.getElementById('copyDeno')
+    const previewModule = document.getElementById('previewModule')
+    const previewDeno = document.getElementById('previewDeno')
 
     async function copy(text) {
       try {
@@ -197,30 +205,50 @@
       }
     }
 
-    moduleNode.addEventListener('keyup', async (e) => {
-      if (e.key === 'Enter') {
-        const value = e.target.value
-        const res = await fetch(`/x/${value}`)
-        const module = document.getElementById('preview-module')
-        module.innerHTML = await res.text() + module.lastElementChild.outerHTML
-        document.getElementById('copyModule').addEventListener('click', async () => {
-          const text = `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`
-          await copy(text)
-        })
+    moduleNode.addEventListener('keyup', (e) => {
+      if (e.target.value.length > 0) {
+        copyModule.disabled = false
+        previewModule.disabled = false
+      } else {
+        copyModule.disabled = true
+        previewModule.disabled = true
       }
     })
 
-    denoNode.addEventListener('keyup', async (e) => {
-      if (e.key === 'Enter') {
-        const value = e.target.value
-        const res = await fetch(`/deno/${value}`)
-        const deno = document.getElementById('preview-deno')
-        deno.innerHTML = await res.text() + deno.lastElementChild.outerHTML
-        document.getElementById('copyDeno').addEventListener('click', async () => {
-          const text = `![deno compatibility](https://shield.deno.dev/deno/${value})`
-          await copy(text)
-        })
+    denoNode.addEventListener('keyup', (e) => {
+      if (e.target.value.length > 0) {
+        copyDeno.disabled = false
+        previewDeno.disabled = false
+      } else {
+        copyDeno.disabled = true
+        previewDeno.disabled = true
       }
+    })
+
+    copyModule.addEventListener('click', async () => {
+      const { value } = moduleNode
+      const text = `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`
+      await copy(text)
+    })
+
+    copyDeno.addEventListener('click', async () => {
+      const { value } = denoNode
+      const text = `![deno compatibility](https://shield.deno.dev/deno/${value})`
+      await copy(text)
+    })
+
+    previewModule.addEventListener('click', async () => {
+      const { value } = moduleNode
+      const res = await fetch(`/x/${value}`)
+      const module = document.getElementById('preview-module')
+      module.innerHTML = await res.text()
+    })
+
+    previewDeno.addEventListener('click', async () => {
+      const { value } = denoNode
+      const res = await fetch(`/deno/${value}`)
+      const deno = document.getElementById('preview-deno')
+      deno.innerHTML = await res.text()
     })
   </script>
   </body>
