@@ -26,11 +26,18 @@ async function handler(request: Request): Promise<Response> {
 		);
 
 		if (!res.ok) {
-			return new Response(res.body, {
-				headers: res.headers,
-				status: res.status,
-				statusText: res.statusText,
-			});
+			return new Response(
+				generate_badge(
+					'deno.land/x',
+					'module not found',
+					get_msg_color('', false),
+				),
+				{
+					headers: res.headers,
+					status: res.status,
+					statusText: res.statusText,
+				},
+			);
 		}
 
 		const json = await res.json();

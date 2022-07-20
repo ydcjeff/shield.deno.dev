@@ -1,255 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Badge service for Deno modules">
-    <meta name="keywords" content="deno, badge, shield, deno shield, deno badge, shield.deno.dev">
-    <meta name="theme-color" content="#000">
-    <meta name="author" content="Jeff Yang">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Badge service for Deno modules">
+		<meta name="keywords" content="deno, badge, shield, deno shield, deno badge, shield.deno.dev">
+		<meta name="theme-color" content="#000">
+		<meta name="author" content="Jeff Yang">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="https://shield.deno.dev">
-    <meta name="twitter:title" value="Deno Shield">
-    <meta name="twitter:description" value="Badge service for Deno modules">
-    <meta name="twitter:image" content="https://opengraph.githubassets.com/67e9da030bbfe490a77721640354b44ba666b0ae90857541ee4d2a81b7047f2b/ydcjeff/shield.deno.dev">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="https://shield.deno.dev">
+		<meta name="twitter:title" value="Deno Shield">
+		<meta name="twitter:description" value="Badge service for Deno modules">
+		<meta name="twitter:image" content="https://opengraph.githubassets.com/67e9da030bbfe490a77721640354b44ba666b0ae90857541ee4d2a81b7047f2b/ydcjeff/shield.deno.dev">
 
-    <meta property="og:title" content="Deno Shield">
-    <meta property="og:description" content="Badge service for Deno modules">
-    <meta property="og:image" content="https://opengraph.githubassets.com/67e9da030bbfe490a77721640354b44ba666b0ae90857541ee4d2a81b7047f2b/ydcjeff/shield.deno.dev">
-    <meta property="og:site" content="https://shield.deno.dev">
+		<meta property="og:title" content="Deno Shield">
+		<meta property="og:description" content="Badge service for Deno modules">
+		<meta property="og:image" content="https://opengraph.githubassets.com/67e9da030bbfe490a77721640354b44ba666b0ae90857541ee4d2a81b7047f2b/ydcjeff/shield.deno.dev">
+		<meta property="og:site" content="https://shield.deno.dev">
 
-    <title>Deno Shield</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="uno.css" type="text/css" />
-    <link rel="icon" href="https://deno.land/logo.svg" type="image/svg+xml">
-    <style>
-      body {
-        animation: tailwind 30s linear infinite;
-      }
-      .font-code {
-        font-family: "JetBrains Mono", monospace;
-      }
-      a {
-        color: #222;
-        font-weight: 600;
-      }
-      a:hover {
-        text-decoration: none;
-      }
-      @keyframes tailwind {
-        0% {
-          background-color: rgb(254 242 242);
-        }
-        6% {
-          background-color: rgb(255 247 237);
-        }
-        12% {
-          background-color: rgb(255 251 235);
-        }
-        18% {
-          background-color: rgb(254 252 232);
-        }
-        24% {
-          background-color: rgb(247 254 231);
-        }
-        30% {
-          background-color: rgb(240 253 244);
-        }
-        36% {
-          background-color: rgb(236 253 245);
-        }
-        42% {
-          background-color: rgb(240 253 250);
-        }
-        48% {
-          background-color: rgb(236 254 255);
-        }
-        54% {
-          background-color: rgb(240 249 255);
-        }
-        60% {
-          background-color: rgb(239 246 255);
-        }
-        66% {
-          background-color: rgb(238 242 255);
-        }
-        72% {
-          background-color: rgb(245 243 255);
-        }
-        78% {
-          background-color: rgb(245 243 255);
-        }
-        84% {
-          background-color: rgb(253 244 255);
-        }
-        90% {
-          background-color: rgb(253 242 248);
-        }
-        100% {
-          background-color: rgb(255 241 242);
-        }
-      }
-    </style>
-  </head>
-  <body class="font-sans mx-auto my-0 text-base max-w-200 px-6">
-    <header class="flex pt-8 justify-between">
-      <div class="font-code text-lg">shield.deno.dev</div>
-      <a
-        href="https://github.com/ydcjeff/shield.deno.dev"
-        target="_blank"
-        rel="shield.deno.dev"
-      >
-        GitHub
-      </a>
-    </header>
-    <h1 class="text-center pt-4 text-3xl">Badge service for Deno modules</h1>
-    <div class="pt-4">
-      <h2 class="m-0 text-lg pt-4">Generate Deno module version badge</h2>
-      <label for="deno-module-version">
-        <div class="flex pt-4 gap-1 items-center">
-          <div class="font-code">shield.deno.dev/x/</div>
-          <input
-            type="text"
-            class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
-            placeholder="enter module name (oak)"
-            id="deno-module-version"
-            name="deno-module-version"
-            required
-          />
-        </div>
-      </label>
-      <div class="flex p-4 justify-between items-center sm:justify-around">
-        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="previewModule" disabled>Preview Badge</button>
-        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copyModule" disabled>Copy Markdown</button>
-        <div class="flex" id="preview-module"></div>
-      </div>
-    </div>
-    <div class="pt-4">
-      <h2 class="m-0 text-lg pt-4">Generate Deno compatibility badge</h2>
-      <label for="deno-version">
-        <div class="flex pt-4 gap-1 items-center">
-          <div class="font-code">shield.deno.dev/deno/</div>
-          <input
-            type="text"
-            class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
-            placeholder="enter deno version (^1.17)"
-            id="deno-version"
-            name="deno-version"
-            required
-          />
-        </div>
-      </label>
-      <div class="flex p-4 justify-between items-center sm:justify-around">
-        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="previewDeno" disabled>Preview Badge</button>
-        <button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copyDeno" disabled>Copy Markdown</button>
-        <div class="flex" id="preview-deno"></div>
-      </div>
-    </div>
-    <div class="pt-4">
-      <h2 class="m-0 text-lg pt-4">Examples</h2>
-      <div class="grid pt-4 gap-4 items-center sm:grid-cols-[2fr_1fr]">
-        <a href="https://shield.deno.dev/x/lodash" target="_blank">https://shield.deno.dev/x/lodash (no v prefix)</a>
-        <img src="/x/lodash" alt="lodash deno module version" />
+		<title>Deno Shield</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="uno.css" type="text/css" />
+		<link rel="icon" href="https://deno.land/logo.svg" type="image/svg+xml">
+		<style>
+			body {
+				animation: tailwind 30s linear infinite;
+			}
+			.font-code {
+				font-family: "JetBrains Mono", monospace;
+			}
+			a {
+				color: #222;
+				font-weight: 600;
+			}
+			a:hover {
+				text-decoration: none;
+			}
+			@keyframes tailwind {
+				0% {
+					background-color: rgb(254 242 242);
+				}
+				6% {
+					background-color: rgb(255 247 237);
+				}
+				12% {
+					background-color: rgb(255 251 235);
+				}
+				18% {
+					background-color: rgb(254 252 232);
+				}
+				24% {
+					background-color: rgb(247 254 231);
+				}
+				30% {
+					background-color: rgb(240 253 244);
+				}
+				36% {
+					background-color: rgb(236 253 245);
+				}
+				42% {
+					background-color: rgb(240 253 250);
+				}
+				48% {
+					background-color: rgb(236 254 255);
+				}
+				54% {
+					background-color: rgb(240 249 255);
+				}
+				60% {
+					background-color: rgb(239 246 255);
+				}
+				66% {
+					background-color: rgb(238 242 255);
+				}
+				72% {
+					background-color: rgb(245 243 255);
+				}
+				78% {
+					background-color: rgb(245 243 255);
+				}
+				84% {
+					background-color: rgb(253 244 255);
+				}
+				90% {
+					background-color: rgb(253 242 248);
+				}
+				100% {
+					background-color: rgb(255 241 242);
+				}
+			}
+		</style>
+	</head>
+	<body class="font-sans mx-auto my-0 text-base max-w-200 px-6">
+		<header class="flex pt-8 justify-between">
+			<div class="font-code text-lg">shield.deno.dev</div>
+			<a
+				href="https://github.com/ydcjeff/shield.deno.dev"
+				target="_blank"
+				rel="shield.deno.dev"
+			>
+				GitHub
+			</a>
+		</header>
+		<h1 class="text-center pt-4 text-3xl">Badge service for Deno modules</h1>
+		<div class="pt-4">
+			<h2 class="m-0 text-lg pt-4">Generate Deno module version badge</h2>
+			<label for="deno-module-version">
+				<div class="flex pt-4 gap-1 items-center">
+					<div class="font-code">shield.deno.dev/x/</div>
+					<input
+						type="text"
+						class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
+						placeholder="enter module name (oak)"
+						id="deno-module-version"
+						name="deno-module-version"
+						required
+					/>
+				</div>
+			</label>
+			<div class="flex p-4 justify-between items-center sm:justify-around">
+				<button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copy-module" disabled>Copy Markdown</button>
+				<div id="preview-module"></div>
+			</div>
+		</div>
+		<div class="pt-4">
+			<h2 class="m-0 text-lg pt-4">Generate Deno compatibility badge</h2>
+			<label for="deno-version">
+				<div class="flex pt-4 gap-1 items-center">
+					<div class="font-code">shield.deno.dev/deno/</div>
+					<input
+						type="text"
+						class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
+						placeholder="enter deno version (^1.17)"
+						id="deno-version"
+						name="deno-version"
+						required
+					/>
+				</div>
+			</label>
+			<div class="flex p-4 justify-between items-center sm:justify-around">
+				<button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copy-deno" disabled>Copy Markdown</button>
+				<div id="preview-deno"></div>
+			</div>
+		</div>
+		<div class="pt-4">
+			<h2 class="m-0 text-lg pt-4">Examples</h2>
+			<div class="grid pt-4 gap-4 items-center sm:grid-cols-[2fr_1fr]">
+				<a href="https://shield.deno.dev/x/lodash" target="_blank">https://shield.deno.dev/x/lodash (no v prefix)</a>
+				<img src="/x/lodash" alt="lodash deno module version" />
 
-        <a href="https://shield.deno.dev/x/dayjs" target="_blank">https://shield.deno.dev/x/dayjs (v prefix)</a>
-        <img src="/x/dayjs" alt="dayjs deno module version"/>
+				<a href="https://shield.deno.dev/x/dayjs" target="_blank">https://shield.deno.dev/x/dayjs (v prefix)</a>
+				<img src="/x/dayjs" alt="dayjs deno module version"/>
 
-        <a href="https://shield.deno.dev/x/xstate" target="_blank">https://shield.deno.dev/x/xstate (scoped module)</a>
-        <img src="/x/xstate" alt="xstate deno module version"/>
+				<a href="https://shield.deno.dev/x/xstate" target="_blank">https://shield.deno.dev/x/xstate (scoped module)</a>
+				<img src="/x/xstate" alt="xstate deno module version"/>
 
-        <a href="https://shield.deno.dev/x/vue" target="_blank">https://shield.deno.dev/x/vue (reserved module)</a>
-        <img src="/x/vue" alt="vue deno module version"/>
+				<a href="https://shield.deno.dev/x/vue" target="_blank">https://shield.deno.dev/x/vue (reserved module)</a>
+				<img src="/x/vue" alt="vue deno module version"/>
 
-        <a href="https://shield.deno.dev/x/oak" target="_blank">https://shield.deno.dev/x/oak (2 digit major version)</a>
-        <img src="/x/oak" alt="oak deno module version"/>
+				<a href="https://shield.deno.dev/x/oak" target="_blank">https://shield.deno.dev/x/oak (2 digit major version)</a>
+				<img src="/x/oak" alt="oak deno module version"/>
 
-        <a href="https://shield.deno.dev/x/superstruct" target="_blank">https://shield.deno.dev/x/superstruct (module under 1.0)</a>
-        <img src="/x/superstruct" alt="superstruct deno module version"/>
+				<a href="https://shield.deno.dev/x/superstruct" target="_blank">https://shield.deno.dev/x/superstruct (module under 1.0)</a>
+				<img src="/x/superstruct" alt="superstruct deno module version"/>
 
-        <a href="https://shield.deno.dev/deno/^1.15" target="_blank">https://shield.deno.dev/deno/^1.15 (supported deno version)</a>
-        <img src="/deno/^1.15" alt="deno version"/>
-      </div>
-    </div>
-    <footer class="flex py-12 justify-between items-center">
-      <span>Copyright &copy; 2022 Jeff Yang</span>
-      <span id="wcb" class="carbonbadge"></span>
-      <span>
-        Powered by
-        <a href="https://deno.com/deploy" target="_blank" rel="shield.deno.dev">
-          Deno Deploy
-        </a>
-      </span>
-    </footer>
-  <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
-  <script type="module">
-    // import "uno.css"; // ui dev only
-    const moduleNode = document.getElementById('deno-module-version')
-    const denoNode = document.getElementById('deno-version')
-    const copyModule = document.getElementById('copyModule')
-    const copyDeno = document.getElementById('copyDeno')
-    const previewModule = document.getElementById('previewModule')
-    const previewDeno = document.getElementById('previewDeno')
+				<a href="https://shield.deno.dev/deno/^1.15" target="_blank">https://shield.deno.dev/deno/^1.15 (supported deno version)</a>
+				<img src="/deno/^1.15" alt="deno version"/>
+			</div>
+		</div>
+		<footer class="flex py-12 justify-between items-center">
+			<span>Copyright &copy; 2022 Jeff Yang</span>
+			<span id="wcb" class="carbonbadge"></span>
+			<span>
+				Powered by
+				<a href="https://deno.com/deploy" target="_blank" rel="shield.deno.dev">
+					Deno Deploy
+				</a>
+			</span>
+		</footer>
+	<script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+	<script type="module">
+		// import "uno.css"; // ui dev only
+		const deno_module = document.getElementById('deno-module-version')
+		const deno_version = document.getElementById('deno-version')
+		const copy_module = document.getElementById('copy-module')
+		const copy_deno = document.getElementById('copy-deno')
+		const preview_module = document.getElementById('preview-module')
+		const preview_deno = document.getElementById('preview-deno')
+		let mod_id, version_id;
 
-    async function copy(text) {
-      try {
-        await navigator.clipboard.writeText(text)
-        alert('Markdown text has been copied to the clipboard.')
-      } catch (e) {
-        console.error(e)
-      }
-    }
+		async function copy(text) {
+			try {
+				await navigator.clipboard.writeText(text)
+				alert('Markdown text has been copied to the clipboard.')
+			} catch (e) {
+				console.error(e)
+			}
+		}
 
-    moduleNode.addEventListener('keyup', (e) => {
-      if (e.target.value.length > 0) {
-        copyModule.disabled = false
-        previewModule.disabled = false
-      } else {
-        copyModule.disabled = true
-        previewModule.disabled = true
-      }
-    })
+		deno_module.addEventListener('input', (e) => {
+			if (mod_id) clearTimeout(mod_id)
+			const value = e.target.value;
+			if (value.length) {
+				mod_id = setTimeout(async () => {
+					copy_module.disabled = false;
+					preview_module.innerHTML = await (await fetch(`/x/${value}`)).text()
+				}, 1000)
+			} else {
+				copy_module.disabled = true;
+				preview_module.innerHTML = ''
+			}
+		})
 
-    denoNode.addEventListener('keyup', (e) => {
-      if (e.target.value.length > 0) {
-        copyDeno.disabled = false
-        previewDeno.disabled = false
-      } else {
-        copyDeno.disabled = true
-        previewDeno.disabled = true
-      }
-    })
+		deno_version.addEventListener('input', (e) => {
+			if (version_id) clearTimeout(version_id)
+			const value = e.target.value;
+			if (value.length) {
+				version_id = setTimeout(async () => {
+					copy_deno.disabled = false;
+					preview_deno.innerHTML = await (await fetch(`/deno/${value}`)).text()
+				}, 1000)
+			} else {
+				copy_deno.disabled = true;
+				preview_deno.innerHTML = ''
+			}
+		})
 
-    copyModule.addEventListener('click', async () => {
-      const { value } = moduleNode
-      const text = `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`
-      await copy(text)
-    })
+		copy_module.addEventListener('click', async () => {
+			const { value } = deno_module
+			const text = `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`
+			await copy(text)
+		})
 
-    copyDeno.addEventListener('click', async () => {
-      const { value } = denoNode
-      const text = `![deno compatibility](https://shield.deno.dev/deno/${value})`
-      await copy(text)
-    })
-
-    previewModule.addEventListener('click', async () => {
-      const { value } = moduleNode
-      const res = await fetch(`/x/${value}`)
-      const module = document.getElementById('preview-module')
-      module.innerHTML = await res.text()
-    })
-
-    previewDeno.addEventListener('click', async () => {
-      const { value } = denoNode
-      const res = await fetch(`/deno/${value}`)
-      const deno = document.getElementById('preview-deno')
-      deno.innerHTML = await res.text()
-    })
-  </script>
-  </body>
+		copy_deno.addEventListener('click', async () => {
+			const { value } = deno_version
+			const text = `![deno compatibility](https://shield.deno.dev/deno/${value})`
+			await copy(text)
+		})
+	</script>
+	</body>
 </html>
