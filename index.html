@@ -209,8 +209,8 @@
 			const value = e.target.value;
 			if (value.length) {
 				mod_id = setTimeout(async () => {
-					copy_module.disabled = false;
 					preview_module.innerHTML = await (await fetch(`/x/${value}`)).text()
+					copy_module.disabled = false;
 				}, 1000)
 			} else {
 				copy_module.disabled = true;
@@ -223,8 +223,8 @@
 			const value = e.target.value;
 			if (value.length) {
 				version_id = setTimeout(async () => {
-					copy_deno.disabled = false;
 					preview_deno.innerHTML = await (await fetch(`/deno/${value}`)).text()
+					copy_deno.disabled = false;
 				}, 1000)
 			} else {
 				copy_deno.disabled = true;
