@@ -1,5 +1,4 @@
-import { serve } from 'https://deno.land/std@0.147.0/http/mod.ts';
-import { serveDir } from 'https://deno.land/std@0.147.0/http/file_server.ts';
+import { serveDir } from 'https://deno.land/std@0.210.0/http/file_server.ts';
 
 const above_one_point_re = /[1-9]\d*\.\d+\.\d+/;
 const below_one_point_re = /(?<!\d)0\.\d+\.\d+/;
@@ -58,7 +57,7 @@ async function handler(request: Request): Promise<Response> {
 	});
 }
 
-serve(handler);
+Deno.serve(handler);
 
 function generate_badge(label: string, msg: string, msg_color: string) {
 	const aria_label = label + ' ' + msg;
