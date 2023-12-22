@@ -218,7 +218,22 @@
 		const preview_std = document.getElementById('preview-std')
 		const preview_deno = document.getElementById('preview-deno')
 
-		let mod_id, std_id, version_id;
+		function add_input_listener(input, copy_markdown, preview, get_url) {
+			let id
+			input.addEventListener('input', (e) => {
+				if (id) clearTimeout(id)
+				const value = e.target.value;
+				if (value.length) {
+					id = setTimeout(async () => {
+						preview.innerHTML = await (await fetch(get_url(value))).text()
+						copy_markdown.disabled = false;
+					}, 1000)
+				} else {
+					copy_markdown.disabled = true;
+					preview.innerHTML = ''
+				}
+			})
+		}
 
 		async function copy(text) {
 			try {
@@ -229,47 +244,11 @@
 			}
 		}
 
-		deno_module.addEventListener('input', (e) => {
-			if (mod_id) clearTimeout(mod_id)
-			const value = e.target.value;
-			if (value.length) {
-				mod_id = setTimeout(async () => {
-					preview_module.innerHTML = await (await fetch(`/x/${value}`)).text()
-					copy_module.disabled = false;
-				}, 1000)
-			} else {
-				copy_module.disabled = true;
-				preview_module.innerHTML = ''
-			}
-		})
+		add_input_listener(deno_module, copy_module, preview_module, (value) => `/x/${value}`)
 
-		deno_std.addEventListener('input', (e) => {
-			if (std_id) clearTimeout(std_id)
-			const value = e.target.value;
-			if (value.length) {
-				std_id = setTimeout(async () => {
-					preview_std.innerHTML = await (await fetch(`/std/${value}`)).text()
-					copy_std.disabled = false;
-				}, 1000)
-			} else {
-				copy_std.disabled = true;
-				preview_std.innerHTML = ''
-			}
-		})
+		add_input_listener(deno_std, copy_std, preview_std, (value) => `/std/${value}`)
 
-		deno_version.addEventListener('input', (e) => {
-			if (version_id) clearTimeout(version_id)
-			const value = e.target.value;
-			if (value.length) {
-				version_id = setTimeout(async () => {
-					preview_deno.innerHTML = await (await fetch(`/deno/${value}`)).text()
-					copy_deno.disabled = false;
-				}, 1000)
-			} else {
-				copy_deno.disabled = true;
-				preview_deno.innerHTML = ''
-			}
-		})
+		add_input_listener(deno_version, copy_deno, preview_deno, (value) => `/deno/${value}`)
 
 		copy_module.addEventListener('click', async () => {
 			const { value } = deno_module
