@@ -10,6 +10,13 @@ function versions(module: string) {
 	);
 }
 
+function not_found(scope: string, message: string, res: Response): Response {
+	return new Response(
+		generate_badge(scope, message, get_msg_color('', false)),
+		{ headers: res.headers, status: res.status, statusText: res.statusText },
+	);
+}
+
 async function handler(request: Request): Promise<Response> {
 	const { pathname } = new URL(request.url);
 
@@ -27,18 +34,7 @@ async function handler(request: Request): Promise<Response> {
 		const res = await versions(module);
 
 		if (!res.ok) {
-			return new Response(
-				generate_badge(
-					'deno.land/x',
-					'module not found',
-					get_msg_color('', false),
-				),
-				{
-					headers: res.headers,
-					status: res.status,
-					statusText: res.statusText,
-				},
-			);
+			return not_found('deno.land/x', 'module not found', res);
 		}
 
 		const json = await res.json();
@@ -48,18 +44,7 @@ async function handler(request: Request): Promise<Response> {
 		const res = await versions('std');
 
 		if (!res.ok) {
-			return new Response(
-				generate_badge(
-					'deno.land/std',
-					'unable to fetch std versions metadata',
-					get_msg_color('', false),
-				),
-				{
-					headers: res.headers,
-					status: res.status,
-					statusText: res.statusText,
-				},
-			);
+			return not_found('deno.land/std', 'version not found', res);
 		}
 
 		const json = await res.json();
