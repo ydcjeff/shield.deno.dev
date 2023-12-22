@@ -130,6 +130,22 @@
 			</div>
 		</div>
 		<div class="pt-4">
+			<h2 class="m-0 text-lg pt-4">Generate Deno std version badge</h2>
+			<label for="deno-std-version">
+				<div class="flex pt-4 gap-1 items-center">
+					<div class="font-code">shield.deno.dev/std/</div>
+					<input type="text"
+						class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
+						placeholder="enter deno std version (0.210.0)" id="deno-std-version" name="deno-std-version" required />
+				</div>
+			</label>
+			<div class="flex p-4 justify-between items-center sm:justify-around">
+				<button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copy-std" disabled>Copy
+					Markdown</button>
+				<div id="preview-std"></div>
+			</div>
+		</div>
+		<div class="pt-4">
 			<h2 class="m-0 text-lg pt-4">Generate Deno compatibility badge</h2>
 			<label for="deno-version">
 				<div class="flex pt-4 gap-1 items-center">
@@ -170,6 +186,9 @@
 				<a href="https://shield.deno.dev/x/postgres" target="_blank">https://shield.deno.dev/x/postgres (module under 1.0)</a>
 				<img src="/x/postgres" alt="postgres deno module version"/>
 
+				<a href="https://shield.deno.dev/std/0.210.0" target="_blank">https://shield.deno.dev/std/0.210.0 (std version)</a>
+				<img src="/std/0.210.0" alt="deno std version"/>
+
 				<a href="https://shield.deno.dev/deno/^1.35" target="_blank">https://shield.deno.dev/deno/^1.35 (supported deno version)</a>
 				<img src="/deno/^1.35" alt="deno version"/>
 			</div>
@@ -188,12 +207,18 @@
 	<script type="module">
 		// import "uno.css"; // ui dev only
 		const deno_module = document.getElementById('deno-module-version')
+		const deno_std = document.getElementById('deno-std-version')
 		const deno_version = document.getElementById('deno-version')
+
 		const copy_module = document.getElementById('copy-module')
+		const copy_std = document.getElementById('copy-std')
 		const copy_deno = document.getElementById('copy-deno')
+
 		const preview_module = document.getElementById('preview-module')
+		const preview_std = document.getElementById('preview-std')
 		const preview_deno = document.getElementById('preview-deno')
-		let mod_id, version_id;
+
+		let mod_id, std_id, version_id;
 
 		async function copy(text) {
 			try {
@@ -218,6 +243,20 @@
 			}
 		})
 
+		deno_std.addEventListener('input', (e) => {
+			if (std_id) clearTimeout(std_id)
+			const value = e.target.value;
+			if (value.length) {
+				std_id = setTimeout(async () => {
+					preview_std.innerHTML = await (await fetch(`/std/${value}`)).text()
+					copy_std.disabled = false;
+				}, 1000)
+			} else {
+				copy_std.disabled = true;
+				preview_std.innerHTML = ''
+			}
+		})
+
 		deno_version.addEventListener('input', (e) => {
 			if (version_id) clearTimeout(version_id)
 			const value = e.target.value;
@@ -235,6 +274,12 @@
 		copy_module.addEventListener('click', async () => {
 			const { value } = deno_module
 			const text = `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`
+			await copy(text)
+		})
+
+		copy_std.addEventListener('click', async () => {
+			const { value } = deno_std
+			const text = `[![deno std](https://shield.deno.dev/std/${value})](https://deno.land/std@${value})`
 			await copy(text)
 		})
 

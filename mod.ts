@@ -42,6 +42,34 @@ async function handler(request: Request): Promise<Response> {
 		const json = await res.json();
 		scope = 'deno.land/x';
 		module = json.latest || 'module not found';
+	} else if (scope === 'std') {
+		const res = await fetch(
+			'https://cdn.deno.land/std/meta/versions.json',
+			{
+				referrer: 'https://shield.deno.dev',
+			},
+		);
+
+		if (!res.ok) {
+			return new Response(
+				generate_badge(
+					'deno.land/std',
+					'unable to fetch std versions metadata',
+					get_msg_color('', false),
+				),
+				{
+					headers: res.headers,
+					status: res.status,
+					statusText: res.statusText,
+				},
+			);
+		}
+
+		const json = await res.json();
+		scope = 'deno.land/std';
+		if (!json.versions.includes(module)) {
+			module = 'version not found';
+		}
 	} else if (scope !== 'deno') {
 		scope = 'shield.deno.dev';
 		module = 'invalid URL';
