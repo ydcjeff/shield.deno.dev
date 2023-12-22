@@ -235,6 +235,12 @@
 			})
 		}
 
+		function add_copy_listener(copy_markdown, input, get_link) {
+			copy_markdown.addEventListener('click', async () => {
+				await copy(get_link(input.value))
+			})
+		}
+
 		async function copy(text) {
 			try {
 				await navigator.clipboard.writeText(text)
@@ -250,23 +256,11 @@
 
 		add_input_listener(deno_version, copy_deno, preview_deno, (value) => `/deno/${value}`)
 
-		copy_module.addEventListener('click', async () => {
-			const { value } = deno_module
-			const text = `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`
-			await copy(text)
-		})
+		add_copy_listener(copy_module, deno_module, (value) => `[![deno module](https://shield.deno.dev/x/${value})](https://deno.land/x/${value})`)
 
-		copy_std.addEventListener('click', async () => {
-			const { value } = deno_std
-			const text = `[![deno std](https://shield.deno.dev/std/${value})](https://deno.land/std@${value})`
-			await copy(text)
-		})
+		add_copy_listener(copy_std, deno_std, (value) => `[![deno std](https://shield.deno.dev/std/${value})](https://deno.land/std@${value})`)
 
-		copy_deno.addEventListener('click', async () => {
-			const { value } = deno_version
-			const text = `![deno compatibility](https://shield.deno.dev/deno/${value})`
-			await copy(text)
-		})
+		add_copy_listener(copy_deno, deno_version, (value) => `![deno compatibility](https://shield.deno.dev/deno/${value})`)
 	</script>
 	</body>
 </html>
