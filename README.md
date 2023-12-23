@@ -21,6 +21,8 @@ And get this → ![oak module version](https://shield.deno.dev/x/oak)
   git config core.hookspath .githooks
   ```
 
+- Use `snake_case` for function and variable names.
+
 ## License
 
 [MIT](./LICENSE)
