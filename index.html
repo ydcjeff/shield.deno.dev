@@ -109,6 +109,7 @@
 			</a>
 		</header>
 		<h1 class="text-center pt-4 text-3xl">Badge service for Deno modules</h1>
+
 		<div class="pt-4">
 			<h2 class="m-0 text-lg pt-4">Generate Deno module version badge</h2>
 			<label for="deno-module-version">
@@ -129,6 +130,7 @@
 				<div id="preview-module"></div>
 			</div>
 		</div>
+
 		<div class="pt-4">
 			<h2 class="m-0 text-lg pt-4">Generate Deno std version badge</h2>
 			<label for="deno-std-version">
@@ -136,15 +138,19 @@
 					<div class="font-code">shield.deno.dev/std/</div>
 					<input type="text"
 						class="bg-transparent border-b-black border-b font-code outline-none border-t-0 border-l-0 border-r-0 text-base w-full p-2 transition"
-						placeholder="enter deno std version (0.210.0)" id="deno-std-version" name="deno-std-version" required />
+						placeholder="enter deno std version (0.210.0)"
+						id="deno-std-version"
+						name="deno-std-version"
+						required
+					/>
 				</div>
 			</label>
 			<div class="flex p-4 justify-between items-center sm:justify-around">
-				<button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copy-std" disabled>Copy
-					Markdown</button>
+				<button class="border rounded font-code text-base p-1 hover:bg-gray-100" id="copy-std" disabled>Copy Markdown</button>
 				<div id="preview-std"></div>
 			</div>
 		</div>
+
 		<div class="pt-4">
 			<h2 class="m-0 text-lg pt-4">Generate Deno compatibility badge</h2>
 			<label for="deno-version">
@@ -165,34 +171,36 @@
 				<div id="preview-deno"></div>
 			</div>
 		</div>
+
 		<div class="pt-4">
 			<h2 class="m-0 text-lg pt-4">Examples</h2>
 			<div class="grid pt-4 gap-4 items-center sm:grid-cols-[2fr_1fr]">
-				<a href="https://shield.deno.dev/x/lodash" target="_blank">https://shield.deno.dev/x/lodash (no v prefix)</a>
+				<a href="/x/lodash" target="_blank">https://shield.deno.dev/x/lodash (no v prefix)</a>
 				<img src="/x/lodash" alt="lodash deno module version" />
 
-				<a href="https://shield.deno.dev/x/dayjs" target="_blank">https://shield.deno.dev/x/dayjs (v prefix)</a>
+				<a href="/x/dayjs" target="_blank">https://shield.deno.dev/x/dayjs (v prefix)</a>
 				<img src="/x/dayjs" alt="dayjs deno module version"/>
 
-				<a href="https://shield.deno.dev/x/xstate" target="_blank">https://shield.deno.dev/x/xstate (scoped module)</a>
+				<a href="/x/xstate" target="_blank">https://shield.deno.dev/x/xstate (scoped module)</a>
 				<img src="/x/xstate" alt="xstate deno module version"/>
 
-				<a href="https://shield.deno.dev/x/vue" target="_blank">https://shield.deno.dev/x/vue (reserved module)</a>
+				<a href="/x/vue" target="_blank">https://shield.deno.dev/x/vue (reserved module)</a>
 				<img src="/x/vue" alt="vue deno module version"/>
 
-				<a href="https://shield.deno.dev/x/oak" target="_blank">https://shield.deno.dev/x/oak (2 digit major version)</a>
+				<a href="/x/oak" target="_blank">https://shield.deno.dev/x/oak (2 digit major version)</a>
 				<img src="/x/oak" alt="oak deno module version"/>
 
-				<a href="https://shield.deno.dev/x/postgres" target="_blank">https://shield.deno.dev/x/postgres (module under 1.0)</a>
+				<a href="/x/postgres" target="_blank">https://shield.deno.dev/x/postgres (module under 1.0)</a>
 				<img src="/x/postgres" alt="postgres deno module version"/>
 
-				<a href="https://shield.deno.dev/std/0.210.0" target="_blank">https://shield.deno.dev/std/0.210.0 (std version)</a>
+				<a href="/std/0.210.0" target="_blank">https://shield.deno.dev/std/0.210.0 (std version)</a>
 				<img src="/std/0.210.0" alt="deno std version"/>
 
-				<a href="https://shield.deno.dev/deno/^1.35" target="_blank">https://shield.deno.dev/deno/^1.35 (supported deno version)</a>
+				<a href="/deno/^1.35" target="_blank">https://shield.deno.dev/deno/^1.35 (supported deno version)</a>
 				<img src="/deno/^1.35" alt="deno version"/>
 			</div>
 		</div>
+
 		<footer class="flex py-12 justify-between items-center">
 			<span>Copyright &copy; 2023 Jeff Yang</span>
 			<span id="wcb" class="carbonbadge"></span>
