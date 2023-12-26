@@ -3,6 +3,20 @@ import { serveDir } from 'https://deno.land/std@0.210.0/http/file_server.ts';
 const above_one_point_re = /[1-9]\d*\.\d+\.\d+/;
 const below_one_point_re = /(?<!\d)0\.\d+\.\d+/;
 
+function versions(module: string) {
+	return fetch(
+		`https://cdn.deno.land/${module}/meta/versions.json`,
+		{ referrer: 'https://shield.deno.dev' },
+	);
+}
+
+function not_found(scope: string, message: string, res: Response): Response {
+	return new Response(
+		generate_badge(scope, message, get_msg_color('', false)),
+		{ headers: res.headers, status: res.status, statusText: res.statusText },
+	);
+}
+
 async function handler(request: Request): Promise<Response> {
 	const { pathname } = new URL(request.url);
 
@@ -17,31 +31,27 @@ async function handler(request: Request): Promise<Response> {
 	module = decodeURIComponent(module);
 
 	if (scope === 'x') {
-		const res = await fetch(
-			`https://cdn.deno.land/${module}/meta/versions.json`,
-			{
-				referrer: 'https://shield.deno.dev',
-			},
-		);
+		const res = await versions(module);
 
 		if (!res.ok) {
-			return new Response(
-				generate_badge(
-					'deno.land/x',
-					'module not found',
-					get_msg_color('', false),
-				),
-				{
-					headers: res.headers,
-					status: res.status,
-					statusText: res.statusText,
-				},
-			);
+			return not_found('deno.land/x', 'module not found', res);
 		}
 
 		const json = await res.json();
 		scope = 'deno.land/x';
 		module = json.latest || 'module not found';
+	} else if (scope === 'std') {
+		const res = await versions('std');
+
+		if (!res.ok) {
+			return not_found('deno.land/std', 'version not found', res);
+		}
+
+		const json = await res.json();
+		scope = 'deno.land/std';
+		if (!json.versions.includes(module)) {
+			module = 'version not found';
+		}
 	} else if (scope !== 'deno') {
 		scope = 'shield.deno.dev';
 		module = 'invalid URL';
