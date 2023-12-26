@@ -3,21 +3,7 @@ import { serveDir } from 'https://deno.land/std@0.210.0/http/file_server.ts';
 const above_one_point_re = /[1-9]\d*\.\d+\.\d+/;
 const below_one_point_re = /(?<!\d)0\.\d+\.\d+/;
 
-function versions(module: string) {
-	return fetch(
-		`https://cdn.deno.land/${module}/meta/versions.json`,
-		{ referrer: 'https://shield.deno.dev' },
-	);
-}
-
-function not_found(scope: string, message: string, res: Response): Response {
-	return new Response(
-		generate_badge(scope, message, get_msg_color('', false)),
-		{ headers: res.headers, status: res.status, statusText: res.statusText },
-	);
-}
-
-async function handler(request: Request): Promise<Response> {
+Deno.serve(async (request) => {
 	const { pathname } = new URL(request.url);
 
 	if (['/', '/uno.css'].includes(pathname)) {
@@ -65,9 +51,21 @@ async function handler(request: Request): Promise<Response> {
 			'Cache-Control': 'max-age=300, s-maxage=300, must-revalidate',
 		},
 	});
+});
+
+function versions(module: string) {
+	return fetch(
+		`https://cdn.deno.land/${module}/meta/versions.json`,
+		{ referrer: 'https://shield.deno.dev' },
+	);
 }
 
-Deno.serve(handler);
+function not_found(scope: string, message: string, res: Response) {
+	return new Response(
+		generate_badge(scope, message, get_msg_color('', false)),
+		{ headers: res.headers, status: res.status, statusText: res.statusText },
+	);
+}
 
 function generate_badge(label: string, msg: string, msg_color: string) {
 	const aria_label = label + ' ' + msg;
